@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using Newtonsoft.Json.Linq;
 
 namespace SupportForMeVKLib
@@ -15,6 +13,7 @@ namespace SupportForMeVKLib
         public Massage Massage { get; }
         public Account Account { get; }
         public Status Status { get; }
+        public Friends Friends { get; }
 
         public SupportVK(string token, string version = "5.131")
         {
@@ -24,6 +23,7 @@ namespace SupportForMeVKLib
             Massage = new Massage();
             Account = new Account();
             Status = new Status();
+            Friends = new Friends();
         }
 
         protected SupportVK() { }

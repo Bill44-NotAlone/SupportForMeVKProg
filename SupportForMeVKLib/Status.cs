@@ -5,8 +5,6 @@ namespace SupportForMeVKLib
 {
     public class Status : SupportVK
     {
-        public Status(string token, string version = "5.131") : base(token, version) { }
-
         public int SetUser(string message)
         {
             JObject pairs = JObject.Parse(webclient.DownloadString($"https://api.vk.com/method/status.set?text={message}&access_token={TOKEN}&v={version}"));

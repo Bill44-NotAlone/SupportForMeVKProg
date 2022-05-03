@@ -4,8 +4,6 @@ namespace SupportForMeVKLib
 {
     public class Account : SupportVK
     {
-        public Account(string token, string version = "5.131") : base(token, version) { }
-
         public void Ban(string owner_id)
         {
             JObject pairs = JObject.Parse(webclient.DownloadString($"https://api.vk.com/method/account.ban?owner_id={owner_id}&access_token={TOKEN}&v={version}"));

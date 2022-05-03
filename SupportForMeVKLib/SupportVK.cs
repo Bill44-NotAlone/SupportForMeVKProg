@@ -1,27 +1,36 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
 namespace SupportForMeVKLib
 {
-    public abstract class SupportVK
+    public class SupportVK
     {
-        protected string TOKEN;
-        protected string version;
-        protected HttpClient client;
-        protected WebClient webclient;
+        protected static string TOKEN;
+        protected static string version;
+        protected static WebClient webclient;
+
         public string UserID { get; private set; }
+        public Massage Massage { get; }
+        public Account Account { get; }
+        public Status Status { get; }
+
         public SupportVK(string token, string version = "5.131")
         {
             TOKEN = token;
-            client = new HttpClient();
             webclient = new WebClient() { Proxy = null };
-            this.version = version;
+            SupportVK.version = version;
+            Massage = new Massage();
+            Account = new Account();
+            Status = new Status();
         }
-        public async void SetUserID(string surname)
+
+        protected SupportVK() { }
+
+        public void SetUserID(string surname)
         {
-            HttpResponseMessage response = await client.GetAsync($"https://api.vk.com/method/users.get?user_ids={surname}&access_token={TOKEN}&v={version}");
-            string text = await response.Content.ReadAsStringAsync();
+            string text = webclient.DownloadString($"https://api.vk.com/method/users.get?user_ids={surname}&access_token={TOKEN}&v={version}");
             UserID = (string)JObject.Parse(text)["response"][0]["id"];
         }
     }
